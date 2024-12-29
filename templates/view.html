@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}View Gallery{% endblock title %}
+{% block content %}
+    <!-- view.html -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery</title>
+    <!-- Add any additional styles or libraries here -->
+</head>
+<body>
+    <h1>Gallery</h1>
+    <p>User: {{ user }}</p>
+    <div id="image-container">
+        <!-- Loop through gallery_docs and display images -->
+        {% for doc in gallery_docs %}
+            <img src="{{ doc.Url }}" alt="{{ doc.content }}">
+        {% endfor %}
+    </div>
+
+    <!-- Add any other content or features as needed -->
+</body>
+
+
+{% endblock %}

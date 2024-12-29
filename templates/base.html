@@ -1,0 +1,70 @@
+<!--base.html-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MyGallery </title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{{ url_for('static', path='css/styles.css') }}">
+
+  </head>
+
+  <body class="bg-gray-100">
+    <div class="body-content px-6 py-6 flex">
+      <!-- Sidebar -->
+      <aside class="bg-gray-100 text-black p-4 w-1/6 border-r" id="sidebar">
+        <h2 class="text-lg font-semibold mb-4 border-b">myGallery </h2>
+        <!-- Add sidebar content here -->
+        <ul>
+          <li><a href="/" class="hover:text-gray-300">Home</a></li>
+          {% if user %}
+            <li><a href="/profile" class="hover:text-gray-300">Profile</a></li>
+            <li><a href="/user_details" class="hover:text-gray-300">Explore</a></li>
+            <li><a href="/settings" class="hover:text-gray-300">Settings</a></li>
+            <li><a href="/logout" class="hover:text-gray-300">Logout</a></li>
+          {% else %}
+          <li><a href="/register" class="hover:text-gray-300">Register</a></li>
+          <li><a href="/login" class="hover:text-gray-300">Login</a></li>
+          {% endif %}
+        </ul>
+      </aside>
+      <div class="w-2/3">
+        <!-- Navbar -->
+        <nav class="bg-blue-500 text-white p-4 border-b" id="navbar">
+          <div class="container mx-auto flex justify-between items-center">
+            <ul class="flex">
+              <li class="mr-4">
+                <a href="/" class="hover:text-gray-300">For You</a>
+              </li>
+              <li class="mr-4">
+                <a href="/view/{{ user }}" class="hover:text-gray-300">Explore Galleries</a>
+              </li>
+              <li>
+                <a href="/recommended" class="hover:text-gray-300"
+                  >Recommended Galleries</a
+                >
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <!-- Content -->
+        <section class="container mx-auto px-4 py-8">
+          {% block content %} {% endblock %}
+        </section>
+      </div>
+      {%if user%}
+      <div class="w-1/6 border-l">
+        <h2 class="text-lg font-semibold mb-4 border-b">Notifications</h2>
+      </div>
+      {% endif %}
+    </div>
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white p-4 text-center mt-8">
+        myGallery &copy; 2024. All rights reserved.
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,59 @@
+<!-- detail.html -->
+{% extends 'base.html' %}
+{% block title %}Tweet{% endblock title %}
+
+{% block content %}
+<div class="flex items-start mb-2">
+    <img src="{{ tweet.author.profile_pic.url }}" alt="{{ tweet.author.username }}" class="w-10 h-10 rounded-full mr-4">
+    <div>
+        <h4 class="font-semibold">{{ tweet.author.username }}</h4>
+        <a href="#">
+            <img src="{{ tweet.image.url }}" alt="tweet">
+            <p>{{ tweet.content }}</p>
+        </a>
+        <div class="flex justify-between items-center">
+            <ul class="flex-row gap-1">
+                <li>
+                    {{ tweet.likes.count }}<!-- Display the total number of likes for a specific tweet -->
+                    <a href="/like">Like</a><!-- Update the likes table and update the number of likes immediately -->
+                </li>
+
+                <li>
+                    {{ tweet.comments.count }}<!-- Display the total number of comments for a specific tweet -->
+                    <a href="/comment">Comment</a><!-- Allow a user to write comments on a tweet -->
+                </li>
+
+                <li>
+                    {{ tweet.retweets.count }}<!-- Display the total number of retweets for a specific tweet -->
+                    <a href="/retweet">Retweet</a><!-- Allow a user to post other users' posts to his/her timeline -->
+                </li>
+                {% if tweet.author.username == current_user.username %}<!-- Check if the user is the original author of the tweet -->
+                    <li>
+                        <a href="/edit_tweet/{{ tweet.id }}">Edit</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="flex p-2">
+            <ul>
+                {% for comment in tweet.comments %}
+                <li>
+                    <img src="{{ comment.author.profile_pic.url }}" alt="{{ comment.author.username }}" class="w-10 h-10 rounded-full mr-4">
+                    {{ comment.content }}<!-- Display all the comments on a specific tweet -->
+                    <a href="/reply/{{ comment.id }}">Reply</a><!-- Allow a user to reply to comments on a tweet -->
+                    <ul>
+                        {% for reply in comment.replies %}
+                            <li class="flex flex-col gap-1">
+                                <img src="{{ reply.author.profile_pic.url }}" alt="{{ reply.author.username }}" class="w-10 h-10 rounded-full mr-4">
+                                {{ reply.content }}<!-- Display all the replies to a specific comment -->
+                                <a href="/reply/{{ reply.id }}">Reply</a><!-- Allow a user to reply to replies on a tweet -->
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock content %}

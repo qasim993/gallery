@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | myGallery</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/styles.css') }}"
+    />
+  </head>
+  <body class="bg-gray-100">
+    <div class="max-w-md mx-auto mt-8">
+      <h2 class="text-2xl font-bold mb-4">Login</h2>
+      <form id="loginForm" action="/login" method="post">
+        <div class="mb-4">
+          <label for="email" class="block mb-1">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="border rounded w-full py-2 px-3"
+            required
+          />
+        </div>
+        <div class="mb-4">
+          <label for="password" class="block mb-1">Password:</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="border rounded w-full py-2 px-3"
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
+        >
+          Login
+        </button>
+        <p class="text-black-700">
+          Don't have an account?
+          <a href="/register" class="hover:text-gray-400">Register</a>
+        </p>
+      </form>
+      <!-- Footer -->
+      <footer class="bg-gray-800 text-white p-4 text-center mt-8">
+        myGallery &copy; 2024. All rights reserved.
+      </footer>
+    </div>    
+  </body>
+  <script>
+    async function submitLoginForm(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        // Collect form data
+        const form = event.target;
+        const formData = new FormData(form);
+        const jsonData = {};
+        formData.forEach((value, key) => { jsonData[key] = value });
+
+        try {
+            // Send form data as JSON
+            const response = await fetch(form.action, {
+                method: form.method,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(jsonData)
+            });
+
+            if (response.ok) {
+                // Redirect or handle success
+                window.location.href = response.url;
+            } else {
+                // Handle errors
+                const errorData = await response.json();
+                console.error(errorData);
+                // You can update the UI to display error messages, for example
+            }
+        } catch (error) {
+            console.error('Error submitting login form:', error);
+        }
+    }
+
+    // Attach event listener to form submission
+    const loginForm = document.getElementById('loginForm');
+    loginForm.addEventListener('submit', submitLoginForm);
+</script>
+
+</html>

@@ -1,0 +1,53 @@
+<!--home.html-->
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="flex justify-between items-center mb-4">
+    <h2 class="text-2xl font-bold">Home</h2>
+    <p>User: {{ user }}</p>
+    {%if user%}
+        <a href="/create/{{user}}" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">New Gallery</a>
+    {%endif%}
+    
+</div>
+
+<!-- gallery List -->
+<div class="bg-white p-4 shadow">
+    {% if gallerys %}
+    <ul>
+        {% for gallery in gallerys %}
+        <li>
+            <div class="flex items-start mb-2">
+                <img src="{{ gallery.author.profile_pic.url }}" alt="{{ gallery.author.username }}" class="w-10 h-10 rounded-full mr-4">
+                <div class="flex flex-col">
+                    <h4 class="font-semibold">{{ gallery.author.username }}</h4>
+                    <a href="#">
+                        <img src="{{ gallery.image.url }}" alt="gallery">
+                        <p>{{ gallery.content }}</p>
+                    </a>
+                    <div class="flex justify-between items-center">
+                        <ul class="flex-row gap-1">
+                            {%if user%}
+                                {% if user.is_authenticated and gallery.author.id == user.id %}
+                                    <li>
+                                        <a href="/edit_gallery/{{ gallery.id }}">Edit</a> <!-- Link to edit this gallery -->
+                                    </li>
+                                    <li>
+                                        <a href="/delete_gallery/{{ gallery.id }}">Delete</a> <!-- Link to delete this gallery -->
+                                    </li>
+                                {% endif %}
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No gallerys found.</p>
+    {% endif %}
+</div>
+{% endblock %}

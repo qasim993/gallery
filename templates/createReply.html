@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Reply to Comment{% endblock title %}
+{% block content %}
+    <h1>Reply to Comment</h1>
+    <div class="form-container">
+        <form id="reply-form">
+            <div class="form-group">
+                <label for="reply_content">Reply</label>
+                <textarea class="form-control" id="reply_content" name="content" rows="2"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Reply</button>
+        </form>
+    </div>
+{% endblock %}

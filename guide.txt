@@ -1,0 +1,25 @@
+After Extracting the folder
+1. open the folder with vs code
+2. Right click on TWITTER and then select open in intergrated terminal
+
+3 . Proceed to:
+#installations
+1. pip install fastapi uvicorn
+2. pip install sqlalchermy
+3. pip install python-multipart
+4. pip install alembic
+5. pip install passlib
+6.  pip install pydantic
+7. conda install conda-forge::google-cloud-sdk
+8. pip install --upgrade google-api-python-client
+9. pip install google-cloud
+10. pip install google-cloud-vision
+11. pip install --upgrade google-cloud-datastore
+12. pip3 install firebase-admin 
+13. pip install itsdangerous
+
+#running the system 
+
+uvicorn main:app --reload --port 8001
+
+Thanks

@@ -1,0 +1,10 @@
+body{
+    box-sizing: border-box;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: fixed;
+}
+footer{
+    bottom: 0%;
+    margin-bottom: 0%;
+}

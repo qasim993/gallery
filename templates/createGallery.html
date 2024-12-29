@@ -1,0 +1,25 @@
+<!--Create Gallery-->
+{% extends "base.html" %}
+{% block title %}New Gallery{% endblock title %}
+{% block content %}
+    <h1>Create Gallery</h1>
+
+        <div class="form-container">
+            <form action="/create/{{ user }}" method="post" enctype="multipart/form-data">
+                 <div>
+            <label for="user_name">Author Name:</label>
+            <input type="text" id="user_name" name="user_name" value="{{user}}">
+        </div>
+        <div>
+            <label for="gallery_name">Gallery Name:</label>
+           <textarea id="gallery_name" name="gallery_name" rows="3" required></textarea>
+        </div>
+        <div>
+            <label for="gallery_image">Gallery Image (PNG or JPG):</label>
+            <input type="file" id="gallery_image" name="gallery_image" accept=".png, .jpg, .jpeg" required>
+        </div>
+        <button type="submit">Upload</button>
+    </form>
+        </div>
+        
+{% endblock %}
